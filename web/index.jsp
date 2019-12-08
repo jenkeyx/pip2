@@ -18,7 +18,7 @@
     table{
       margin: 0 auto 0 300px;
     }
-    #y{
+    input[type = "text"]{
       font-size: 15px;
       width: 180px;
       border: none;
@@ -28,7 +28,7 @@
       transition: 0.3s;
       margin-left: 16px
     }
-    #y:focus{
+    input[type = "text"]:focus{
       border-bottom: 1px solid #6491B3;
     }
   </style>
@@ -40,7 +40,7 @@
   <i><p>Мхитарян Сергей Арменович. P3200. Вариант 200014</p></i>
 </h1>
 <body>
-<script defer src="javaScript.js"></script>
+<script defer src="js/javaScript.js"></script>
 <form action="ControllerServlet" method="get" id="form">
   <table class="animated fadeInUp">
     <tr>
@@ -54,31 +54,31 @@
       <td>
         <div class="checkboxArr">
         <label>
-        <input type="checkbox" name="checkbox" value="-2" onclick="checkboxOnClick()">
+        <input type="checkbox" name="checkbox[]" value="-2">
       </label>-2
         <label>
-          <input type="checkbox" name="checkbox" value="-1.5" onclick="checkboxOnClick()">
+          <input type="checkbox" name="checkbox[]" value="-1.5">
         </label>-1.5
         <label>
-          <input type="checkbox" name="checkbox" value="-1" onclick="checkboxOnClick()" >
+          <input type="checkbox" name="checkbox[]" value="-1">
         </label>-1
         <label>
-          <input type="checkbox" name="checkbox" value="-0.5" onclick="checkboxOnClick()">
+          <input type="checkbox" name="checkbox[]" value="-0.5">
         </label>-0.5
         <label>
-          <input type="checkbox" name="checkbox" value="0" onclick="checkboxOnClick()">
+          <input type="checkbox" name="checkbox[]" value="0">
         </label>0
         <label>
-          <input type="checkbox" name="checkbox" value="0.5" onclick="checkboxOnClick()">
+          <input type="checkbox" name="checkbox[]" value="0.5">
         </label>0.5
         <label>
-          <input type="checkbox" name="checkbox" value="1" onclick="checkboxOnClick()">
+          <input type="checkbox" name="checkbox[]" value="1">
         </label>1
         <label>
-          <input type="checkbox" name="checkbox" value="1.5" onclick="checkboxOnClick()">
+          <input type="checkbox" name="checkbox[]" value="1.5">
         </label>1.5
         <label>
-          <input type="checkbox" name="checkbox" value="2" onclick="checkboxOnClick()">
+          <input type="checkbox" name="checkbox[]" value="2">
         </label>2
         </div>
       </td>
@@ -89,13 +89,7 @@
     </tr>
     <tr>
       <td>Изменение R : </td>
-      <td>
-        <label><input type="radio" name="r" value="1" checked></label> 1
-        <label><input type="radio" name="r" value="2"></label> 2
-        <label><input type="radio" name="r" value="3"></label> 3
-        <label><input type="radio" name="r" value="4"></label> 4
-        <label><input type="radio" name="r" value="5"></label> 5
-      </td>
+      <td><label for="r"></label><input type="text" name="r" id="r" placeholder="Введите число от -5 до 3"></td>
     </tr>
     <tr>
       <td></td>
