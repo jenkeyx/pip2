@@ -48,7 +48,9 @@
     <tr>
       <td></td>
       <td>
-        HERE WILL BE A CANVAS!
+        <div>
+            <canvas width="400" height="400" id="canvasArea">Canvas died</canvas>
+        </div>
       </td>
     </tr>
     <tr>
@@ -91,7 +93,7 @@
     </tr>
     <tr>
       <td>Изменение R : </td>
-      <td><label for="r"></label><input type="text" name="r" id="r" placeholder="Введите число от -5 до 3"></td>
+      <td><label for="r"></label><input type="text" name="r" id="r" placeholder="Введите число от -5 до 3" onchange="setR(this.options[this.selectedIndex].value)"></td>
     </tr>
     <tr>
       <td></td>
@@ -100,7 +102,7 @@
   </table>
 </form>
 <div>
-    <table id="table">
+    <table id="resTable" class="animated fadeInUp delay-1s">
         <%
             int i = 1;
             StringBuilder builder = new StringBuilder();
@@ -127,5 +129,147 @@
         %>
     </table>
 </div>
+<script>
+    let drawingCanvas = document.getElementById("canvasArea");
+    let context = drawingCanvas.getContext("2d");
+    drawingCanvas.addEventListener('click', function (ev) {
+        let R = document.getElementById("r").value;
+        if (R === "") {
+            R = "r";
+        }
+        drawCanvas(R);
+        let r = parseFloat(R).toFixed(3);
+        if (isNaN(r)) {
+            document.getElementById("r").style = 'background-color: lightcoral;';
+            let incr = 1;
+            while (incr < document.getElementById("r").options.length) {
+                document.getElementById("r").options.item(incr).style = 'background-color: lightblue;';
+                incr++;
+            }
+        } else {
+            context.strokeStyle = 'rgb(255,0,0)';
+            context.fillStyle = 'rgb(255,0,0)';
+            context.beginPath();
+            context.arc(ev.offsetX, ev.offsetY, 2, 0, 2 * Math.PI);
+            context.closePath();
+            context.fill();
+            let x = ((ev.layerX - drawingCanvas.width / 2) / 140 * r).toPrecision(3);
+            let y = ((drawingCanvas.height / 2 - ev.layerY) / 140 * r).toPrecision(3);
+            request(x, y, r);
+        }
+    });
+    function drawCanvas(r) {
+        context.clearRect(0, 0, 400, 400);
+        context.strokeStyle = 'rgb(0,0,0)';
+        context.strokeRect(0, 0, 400, 400);
+        context.lineWidth = 2;
+        context.font = "small-caps 12px Arial";
+        //отрисовка области
+        context.fillStyle = 'rgb(0,155,255)';
+        context.fillRect(200, 130, 140, 70);
+        // шаблон треугольника
+        context.beginPath();
+        context.moveTo(200, 200);
+        context.lineTo(60, 200);
+        context.lineTo(200, 60);
+        context.lineTo(200, 200);
+        context.closePath();
+        context.fill();
+        // шаблон треугольника
+        //шаблон сектора круга
+        context.beginPath();
+        context.moveTo(200, 200);
+        context.lineTo(200, 100);
+        context.arc(200, 200, 70, Math.PI / 2, Math.PI, false);//x и y центра, радиус, начальная точка, конечная точка , против часовой стрелки
+        context.lineTo(200, 200);
+        context.closePath();
+        context.fill();
+        // шаблон сектора круга
+        context.fillStyle = 'rgb(0,0,0)';
+        // ось  у
+        context.beginPath();
+        context.moveTo(200, 400);
+        context.lineTo(200, 0);
+        context.closePath();
+        context.stroke();
+        // стрелка оси у
+        context.beginPath();
+        context.moveTo(200, 0);
+        context.lineTo(195, 10);
+        context.moveTo(200, 0);
+        context.lineTo(205, 10);
+        context.closePath();
+        context.stroke();
+        // ось х
+        context.beginPath();
+        context.moveTo(0, 200);
+        context.lineTo(400, 200);
+        context.closePath();
+        context.stroke();
+        // стрелки оси х
+        context.beginPath();
+        context.moveTo(400, 200);
+        context.lineTo(390, 195);
+        context.moveTo(400, 200);
+        context.lineTo(390, 205);
+        context.closePath();
+        context.stroke();
+        // буквы х и у
+        context.fillText("x", 387, 190);
+        context.fillText("y", 210, 13);
+        // засечики на оси X
+        context.beginPath();
+        context.moveTo(270, 195);
+        context.lineTo(270, 205);
+        context.moveTo(340, 195);
+        context.lineTo(340, 205);
+        context.closePath();
+        context.stroke();
+        context.beginPath();
+        context.moveTo(130, 195);
+        context.lineTo(130, 205);
+        context.moveTo(60, 195);
+        context.lineTo(60, 205);
+        context.closePath();
+        context.stroke();
+        // засечки на оси Y
+        context.beginPath();
+        context.moveTo(195, 130);
+        context.lineTo(205, 130);
+        context.moveTo(195, 60);
+        context.lineTo(205, 60);
+        context.closePath();
+        context.stroke();
+        context.beginPath();
+        context.moveTo(195, 270);
+        context.lineTo(205, 270);
+        context.moveTo(195, 340);
+        context.lineTo(205, 340);
+        context.closePath();
+        context.stroke();
+        // пометки значений засечек
+        let halfR;
+        if (r === "R") {
+            halfR = "R/2"
+        } else {
+            halfR = r / 2;
+        }
+        context.fillText(halfR, 263, 190);
+        context.fillText(halfR, 210, 133);
+        context.fillText(r, 210, 63);
+        context.fillText(r, 337, 190);
+        context.fillText("-" + halfR, 120, 190);
+        context.fillText("-" + halfR, 210, 273);
+        context.fillText("-" + r, 55, 190);
+        context.fillText("-" + r, 210, 343);
+    }
+    function setR(r) {
+        document.getElementById("r").style = 'background-color: lightblue;';
+        if (document.getElementById("r").options.item(0).value === "r") {
+            document.getElementById("r").options.remove(0)
+        }
+        drawCanvas(r);
+    }
+</script>
 </body>
 </html>

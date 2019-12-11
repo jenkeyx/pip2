@@ -76,7 +76,6 @@ function request(x, y, r) {
         }
     })
 }
-
 function getCheckedBoxes() {
     let checkboxes = document.getElementsByClassName('checkbox');
     let checkboxesChecked = [];
