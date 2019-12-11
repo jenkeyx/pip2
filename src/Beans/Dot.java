@@ -53,4 +53,24 @@ public class Dot {
                 ", inZone=" + inZone +
                 '}';
     }
+
+    public String toJson() {
+        return
+                "{" + "\"x\":\"" + x + "\"," +
+                        "\"y\":\"" + y + "\"," +
+                        "\"r\":\"" + r + "\"," +
+                        "\"result\":\"" + isInZone() + "\"" +
+                        "}";
+    }
+
+    public static String toJsonArray(Dot[] dots){
+        StringBuilder result = new StringBuilder("[");
+        for (Dot dot:dots) {
+            result.append(dot.toJson());
+            result.append(",");
+        }
+        result.deleteCharAt(result.length()-1);
+        result.append("]");
+        return  result.toString();
+    }
 }

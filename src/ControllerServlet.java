@@ -1,4 +1,3 @@
-import Beans.Dot;
 import Beans.DotBean;
 import Beans.ErrorBean;
 
@@ -13,11 +12,11 @@ import java.util.Map;
 @WebServlet(name = "ControllerServlet", urlPatterns = "controllerServlet")
 public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.getRequestDispatcher("WEB-INF/areaCheckServlet").forward(request, response);
         execBeans(request);
-        if (hasAnyParams(request)) {
+        if (!hasAnyParams(request)) {
             if (hasRequiredParams(request)) {
                 if (hasCorrectParams(request)) {
-                    request.getRequestDispatcher("WEB-INF/areaCheckServlet").forward(request, response);
                 } else {
                     ErrorBean errorBean = (ErrorBean) request.getAttribute("errors");
                     searchErrors(request, errorBean);
@@ -84,7 +83,7 @@ public class ControllerServlet extends HttpServlet {
         return resultY && resultR;
     }
 
-    private boolean isNaN(String x) {
+    static boolean isNaN(String x) {
         return Double.isNaN(Double.parseDouble(x));
     }
 

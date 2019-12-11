@@ -18,7 +18,7 @@ function send() {
     validateText(r);
 
     if (xValid && yValid && rValid) {
-        document.forms.item(0).submit();
+        request(getCheckedBoxes(),$("#y").val(),$("#r").val());
     }else if (!xValid){
         checkboxArr.each(function mark(){
             $("input:checkbox").css({"color":"#cc0000"})
@@ -51,3 +51,39 @@ function validateText(e) {
     }
 }
 
+function request(x, y, r) {
+    let data = {
+        "type": "ajax",
+        "checkbox[]": Array.isArray(x) ? x : [x],
+        "y": y,
+        "r": r
+    };
+    $.ajax({
+        type: "GET",
+        url: "controllerServlet",
+        data: data,
+        dataType: 'text',
+        success: function (data) {
+            let index = 0;
+            data = Array(data);
+            console.log(data);
+            let res = JSON.parse(data);
+            for (index; index < res.length; index++) {
+                let tr = document.createElement("tr");
+                tr.innerHTML = '<td>' + res[index].x + '</td><td>' + res[index].y + '</td><td>' + res[index].r + '</td><td style="background-color: ' + (res[index].result === "true" ? "lightgreen" : "lightcoral") + '">' + res[index].result + '</td>';
+                document.getElementById("table").appendChild(tr);
+            }
+        }
+    })
+}
+
+function getCheckedBoxes() {
+    let checkboxes = document.getElementsByClassName('checkbox');
+    let checkboxesChecked = [];
+    for (let index = 0; index < checkboxes.length; index++) {
+        if (checkboxes[index].checked) {
+            checkboxesChecked.push(checkboxes[index].value);
+        }
+    }
+    return checkboxesChecked;
+}

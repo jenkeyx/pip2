@@ -1,4 +1,6 @@
+<%@ page import="Beans.Dot" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<jsp:useBean id="array" class="Beans.DotBean" scope="application"/>
 <html>
 <head>
   <meta charset="utf-8">
@@ -41,7 +43,7 @@
 </h1>
 <body>
 <script defer src="js/javaScript.js"></script>
-<form action="ControllerServlet" method="get" id="form">
+<form action="controllerServlet" method="get" id="form">
   <table class="animated fadeInUp">
     <tr>
       <td></td>
@@ -54,31 +56,31 @@
       <td>
         <div class="checkboxArr">
         <label>
-        <input type="checkbox" name="checkbox[]" value="-2">
+        <input type="checkbox" class="checkbox" name="checkbox[]" value="-2">
       </label>-2
         <label>
-          <input type="checkbox" name="checkbox[]" value="-1.5">
+          <input type="checkbox" class="checkbox" name="checkbox[]" value="-1.5">
         </label>-1.5
         <label>
-          <input type="checkbox" name="checkbox[]" value="-1">
+          <input type="checkbox" class="checkbox" name="checkbox[]" value="-1">
         </label>-1
         <label>
-          <input type="checkbox" name="checkbox[]" value="-0.5">
+          <input type="checkbox" class="checkbox" name="checkbox[]" value="-0.5">
         </label>-0.5
         <label>
-          <input type="checkbox" name="checkbox[]" value="0">
+          <input type="checkbox" class="checkbox" name="checkbox[]" value="0">
         </label>0
         <label>
-          <input type="checkbox" name="checkbox[]" value="0.5">
+          <input type="checkbox" class="checkbox" name="checkbox[]" value="0.5">
         </label>0.5
         <label>
-          <input type="checkbox" name="checkbox[]" value="1">
+          <input type="checkbox" class="checkbox" name="checkbox[]" value="1">
         </label>1
         <label>
-          <input type="checkbox" name="checkbox[]" value="1.5">
+          <input type="checkbox" class="checkbox" name="checkbox[]" value="1.5">
         </label>1.5
         <label>
-          <input type="checkbox" name="checkbox[]" value="2">
+          <input type="checkbox" class="checkbox" name="checkbox[]" value="2">
         </label>2
         </div>
       </td>
@@ -97,5 +99,33 @@
     </tr>
   </table>
 </form>
+<div>
+    <table id="table">
+        <%
+            int i = 1;
+            StringBuilder builder = new StringBuilder();
+            builder.append("<tr>");
+            builder.append("<th>").append("X").append("</th>");
+            builder.append("<th>").append("Y").append("</th>");
+            builder.append("<th>").append("R").append("</th>");
+            builder.append("<th>").append("Result").append("</th>");
+            builder.append("</tr>");
+            for (Dot dot : array.getArray()) {
+                builder.append("<tr>");
+                builder.append("<td>").append(dot.getX()).append("</td>");
+                builder.append("<td>").append(dot.getY()).append("</td>");
+                builder.append("<td>").append(dot.getR()).append("</td>");
+                if (dot.isInZone()) {
+                    builder.append("<td style='background-color: lightgreen;'>").append(dot.isInZone()).append("</td>");
+                } else {
+                    builder.append("<td style='background-color: lightcoral;'>").append(dot.isInZone()).append("</td>");
+                }
+                builder.append("</tr>");
+                i++;
+            }
+            out.println(builder.toString());
+        %>
+    </table>
+</div>
 </body>
 </html>
