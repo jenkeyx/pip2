@@ -33,12 +33,15 @@ public class AreaCheckServlet extends HttpServlet {
         }
     }
     boolean zoneCheck(double x, double y, double r) {
-        if ((y >= -r && y <= 0)&&(x >= r/2 && x<= 0)) {
-            return true;
+        boolean result = false;
+        if ((y >= -r && y <= 0)&&(x >= -r/2 && x<= 0)) {
+            result = true;
         }else
-        if ((x >= y + r ) && (x >= -r/2) && (x <= 0)){
-            return true;
-        }else
-            return (Math.pow(x, 2) + Math.pow(x, 2) <= r) && x >= 0 && y >= 0;
+        if ((2*x >= y - r ) && (x >= -r/2) && (x <= 0) && y<=r && y>=0){
+            result = true;
+        }else if ((Math.pow(x, 2) + Math.pow(y, 2) <= Math.pow(r,2)) && x >= 0 && y >= 0){
+            result = true;
+        }
+        return result;
     }
 }

@@ -34,14 +34,22 @@ function validateText(e) {
         if (!isNaN(parseFloat(e.value))) {
             e.value = e.value.replace(",",".");
         }
-        if (isNaN(parseFloat(e.value)) || e.value > 3 || e.value < -5 || !e.value) {
-            e.style.borderBottom = "1px solid red";
-            console.log("error")
-        } else {
-            if (name === "y"){
+        if (name === "y") {
+            if (isNaN(parseFloat(e.value)) || e.value > 3 || e.value < -5 || !e.value) {
+                e.style.borderBottom = "1px solid red";
+                console.log("error")
+            } else {
                 yValid = true;
-            }else {rValid = true}
-            e.style.borderBottom = "1px solid #e0e0e0";
+                e.style.borderBottom = "1px solid #e0e0e0";
+            }
+        }else {
+            if (isNaN(parseFloat(e.value))|| e.value < 2 || e.value >5 || !e.value){
+                e.style.borderBottom = "1px solid red";
+                console.log("error")
+            }else {
+                rValid = true;
+                e.style.borderBottom = "1px solid #e0e0e0";
+            }
         }
     } else {
         if (name === "y"){

@@ -102,7 +102,7 @@
   </table>
 </form>
 <div>
-    <table id="resTable">
+    <table id="table" class="animated fadeInUp delay-1s">
         <%
             int i = 1;
             StringBuilder builder = new StringBuilder();
@@ -132,6 +132,8 @@
 <script>
     let drawingCanvas = document.getElementById("canvasArea");
     let context = drawingCanvas.getContext("2d");
+    drawCanvas("r");
+
     drawingCanvas.addEventListener('click', function (ev) {
         let R = document.getElementById("r").value;
         if (R === "") {
@@ -140,7 +142,7 @@
         drawCanvas(R);
         let r = parseFloat(R).toFixed(3);
         if (isNaN(r)) {
-            document.getElementById("r").style = 'background-color: lightcoral;';
+            document.getElementById("r").style.borderBottom ="1px solid #e0e0e0";
             let incr = 1;
             while (incr < document.getElementById("r").options.length) {
                 document.getElementById("r").options.item(incr).style = 'background-color: lightblue;';
@@ -249,7 +251,7 @@
         context.stroke();
         // пометки значений засечек
         let halfR;
-        if (r === "R") {
+        if (r === "r") {
             halfR = "R/2"
         } else {
             halfR = r / 2;
