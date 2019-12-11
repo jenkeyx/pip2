@@ -102,7 +102,7 @@
   </table>
 </form>
 <div>
-    <table id="resTable" class="animated fadeInUp delay-1s">
+    <table id="resTable">
         <%
             int i = 1;
             StringBuilder builder = new StringBuilder();
