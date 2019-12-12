@@ -168,21 +168,22 @@
         context.font = "small-caps 12px Arial";
         //отрисовка области
         context.fillStyle = 'rgb(0,155,255)';
-        context.fillRect(200, 130, 140, 70);
+        context.fillRect(130, 200, 70, 140);
         // шаблон треугольника
         context.beginPath();
         context.moveTo(200, 200);
-        context.lineTo(60, 200);
+        context.lineTo(130, 200);
         context.lineTo(200, 60);
         context.lineTo(200, 200);
         context.closePath();
         context.fill();
+
         // шаблон треугольника
         //шаблон сектора круга
         context.beginPath();
         context.moveTo(200, 200);
         context.lineTo(200, 100);
-        context.arc(200, 200, 70, Math.PI / 2, Math.PI, false);//x и y центра, радиус, начальная точка, конечная точка , против часовой стрелки
+        context.arc(200, 200, 70, 1.5 * Math.PI, 0, false);//x и y центра, р адиус, начальная точка, конечная точка , против часовой стрелки
         context.lineTo(200, 200);
         context.closePath();
         context.fill();
