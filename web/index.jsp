@@ -139,10 +139,15 @@
         if (R === "") {
             R = "r";
         }
-        drawCanvas(R);
+        if (R >=2 && R <= 5){
+            drawCanvas(R);
+        }else{
+            drawCanvas("r");
+            document.getElementById("r").style.borderBottom ="1px solid red";
+        }
         let r = parseFloat(R).toFixed(3);
-        if (isNaN(r)) {
-            document.getElementById("r").style.borderBottom ="1px solid #e0e0e0";
+        if (isNaN(r) || r < 2 || r > 5 ||  r.length >10) {
+            document.getElementById("r").style.borderBottom ="1px solid red";
             let incr = 1;
             while (incr < document.getElementById("r").options.length) {
                 document.getElementById("r").options.item(incr).style = 'background-color: lightblue;';
